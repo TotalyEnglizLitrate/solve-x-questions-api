@@ -35,6 +35,9 @@ class Question:
             for x, y in zip(test_cases[::2], test_cases[1::2])
         ]
 
+        self.hints = question["hints"]
+        self.difficulty = question["difficulty"]
+
 
 if "questions" not in DB_CLIENT.list_database_names():
     print("Questions database not found, creating one")
@@ -66,6 +69,8 @@ if "questions" not in DB_CLIENT.list_database_names():
                 "description": {"$type": "string"},
                 "tags": {"$type": "array"},
                 "test_cases": {"$type": "array"},
+                "hints": {"$type": "array"},
+                "difficulty": {"$type": "string"},
             },
         )
         db.questions.insert_many([qn.__dict__ for qn in questions])
